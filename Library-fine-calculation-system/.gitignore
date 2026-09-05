@@ -5,7 +5,7 @@ target/
 .kotlin
 
 # Database credentials
-src/main/resources/db.properties
+backend/src/main/resources/db.properties
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
