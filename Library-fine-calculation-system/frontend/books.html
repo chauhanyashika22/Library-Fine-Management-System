@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Fine Management System - Books</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- ============ SIDEBAR ============ -->
+<aside class="sidebar">
+    <div class="brand">
+        <span class="brand-icon">📖</span>
+        <div class="brand-text">
+            <div class="title">Library Fine</div>
+            <div class="subtitle">Management System</div>
+        </div>
+    </div>
+    <nav>
+        <a class="nav-item"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a class="nav-item active"><span class="nav-icon">📚</span> Books</a>
+        <a class="nav-item"><span class="nav-icon">👥</span> Members</a>
+        <a class="nav-item"><span class="nav-icon">➡️</span> Issue Book</a>
+        <a class="nav-item"><span class="nav-icon">⬅️</span> Return Book</a>
+        <a class="nav-item"><span class="nav-icon">📄</span> Transactions</a>
+        <a class="nav-item"><span class="nav-icon">💲</span> Fines</a>
+        <a class="nav-item"><span class="nav-icon">📊</span> Reports</a>
+        <a class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+        <a class="nav-item"><span class="nav-icon">↪️</span> Logout</a>
+    </nav>
+</aside>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main">
+
+        <!-- ============ TOP BAR ============ -->
+        <div class="topbar">
+        <div class="hamburger">☰</div>
+        <div class="admin">
+            <div class="avatar">👤</div>
+            Admin <span>▾</span>
+        </div>
+    </div>
+
+
+      <div class="page-header">
+        <h1> Books</h1>
+        <div class="breadcrumb"><p>Dashboard / <span class="current">Books</span></p></div>
+      </div>
+
+      <!-- ============ ADD NEW BOOK FORM ============ -->
+      <section class="panel">
+        <div class="panel-title">Add New Book</div>
+
+        <!--
+          BACKEND: point this form at your servlet/controller endpoint.
+          Example (Servlet):   <form action="AddBookServlet" method="post">
+          Example (Spring MVC):<form action="/books/add" method="post">
+          Make sure every input below has a "name" attribute matching the
+          field your backend expects (bean property / request parameter name).
+        -->
+        <form id="addBookForm" action="/books/add" method="post">
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Title <span class="required">*</span></label>
+              <!-- BACKEND: name="title" -> maps to Book.title -->
+              <input type="text" name="title" placeholder="Enter book title" required>
+            </div>
+
+            <div class="form-group">
+              <label>Author <span class="required">*</span></label>
+              <!-- BACKEND: name="author" -> maps to Book.author -->
+              <input type="text" name="author" placeholder="Enter author name" required>
+            </div>
+
+            <div class="form-group">
+              <label>ISBN <span class="required">*</span></label>
+              <!-- BACKEND: name="isbn" -> maps to Book.isbn -->
+              <input type="text" name="isbn" placeholder="Enter ISBN" required>
+            </div>
+
+            <div class="form-group">
+              <label>Category <span class="required">*</span></label>
+              <!-- BACKEND: name="category" -> maps to Book.category
+                   Populate <option> values dynamically from the database
+                   instead of hardcoding them below.
+
+                   JSP + JSTL example:
+                   <select name="category" required>
+                     <option value="">Select Category</option>
+                     <c:forEach var="cat" items="${categoryList}">
+                       <option value="${cat.id}">${cat.name}</option>
+                     </c:forEach>
+                   </select>
+
+                   Thymeleaf example:
+                   <select name="category" required>
+                     <option value="">Select Category</option>
+                     <option th:each="cat : ${categoryList}"
+                             th:value="${cat.id}"
+                             th:text="${cat.name}"></option>
+                   </select>
+              -->
+              <select name="category" required>
+                <option value="">Select Category</option>
+                <option value="programming">Programming</option>
+                <option value="computer-science">Computer Science</option>
+                <option value="fiction">Fiction</option>
+                <option value="non-fiction">Non-Fiction</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Quantity <span class="required">*</span></label>
+              <!-- BACKEND: name="quantity" -> maps to Book.quantity -->
+              <input type="number" name="quantity" min="0" placeholder="Enter quantity" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <span>📖</span> Add Book
+          </button>
+        </form>
+      </section>
+
+      <!-- ============ BOOK LIST ============ -->
+      <section class="panel">
+        <div class="panel-title">Book List</div>
+
+        <!--
+          BACKEND: this search/filter bar should submit a GET request so the
+          page can be reloaded (or fetched via AJAX/fetch) with query params.
+          Example (Servlet):    <form action="BookListServlet" method="get">
+          Example (Spring MVC): <form action="/books" method="get">
+        -->
+        <form class="list-toolbar" action="/books" method="get">
+          <div class="search-input">
+            <span class="icon">🔍</span>
+            <!-- BACKEND: name="query" -> read as request.getParameter("query")
+                 and use it to filter by title, author, or ISBN in your SQL/JPQL -->
+            <input type="text" name="query" placeholder="Search by title, author or ISBN...">
+          </div>
+
+          <!-- BACKEND: name="category" -> filters the list by category.
+               Populate options the same way as the Add Book form's category
+               dropdown (dynamic from DB), and keep the selected value sticky
+               using request.getParameter("category") / th:selected. -->
+          <select class="filter-select" name="category">
+            <option value="">Select Category</option>
+            <option value="programming">Programming</option>
+            <option value="computer-science">Computer Science</option>
+          </select>
+
+          <button type="submit" class="btn btn-primary">
+            <span>🔍</span> Search
+          </button>
+
+          <!-- BACKEND: simple link/button back to the unfiltered list,
+               or trigger an AJAX refresh of the table body -->
+          <button type="button" class="btn btn-green btn-refresh" onclick="location.reload()">
+            <span>⟳</span> Refresh
+          </button>
+        </form>
+
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>ISBN</th>
+              <th>Category</th>
+              <th>Quantity</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <!--
+            BACKEND: the <tbody> below contains STATIC SAMPLE ROWS for layout
+            reference only. Replace the whole <tbody> content with a loop over
+            your book list from the database.
+
+            JSP + JSTL example:
+            <tbody>
+              <c:forEach var="book" items="${bookList}">
+                <tr>
+                  <td>${book.id}</td>
+                  <td>${book.title}</td>
+                  <td>${book.author}</td>
+                  <td>${book.isbn}</td>
+                  <td>${book.category}</td>
+                  <td>${book.quantity}</td>
+                  <td class="action-btns">
+                    <a class="btn btn-edit" href="EditBookServlet?id=${book.id}">✎ Edit</a>
+                    <a class="btn btn-delete" href="DeleteBookServlet?id=${book.id}"
+                       onclick="return confirm('Delete this book?');">🗑 Delete</a>
+                  </td>
+                </tr>
+              </c:forEach>
+            </tbody>
+
+            Thymeleaf example:
+            <tbody>
+              <tr th:each="book : ${bookList}">
+                <td th:text="${book.id}"></td>
+                <td th:text="${book.title}"></td>
+                <td th:text="${book.author}"></td>
+                <td th:text="${book.isbn}"></td>
+                <td th:text="${book.category}"></td>
+                <td th:text="${book.quantity}"></td>
+                <td class="action-btns">
+                  <a class="btn btn-edit" th:href="@{/books/edit(id=${book.id})}">✎ Edit</a>
+                  <a class="btn btn-delete" th:href="@{/books/delete(id=${book.id})}"
+                     onclick="return confirm('Delete this book?');">🗑 Delete</a>
+                </td>
+              </tr>
+            </tbody>
+
+            REST/JS example (fetch from a Java API, e.g. Spring Boot @RestController):
+              fetch('/api/books?page=1')
+                .then(res => res.json())
+                .then(data => renderRows(data.books));
+              // then build <tr> elements in JS and append to the tbody
+          -->
+          <tbody id="bookTableBody">
+            <tr>
+              <td>1</td>
+              <td>Java Programming Basics</td>
+              <td>James Gosling</td>
+              <td>978-9389812345</td>
+              <td>Programming</td>
+              <td>10</td>
+              <td class="action-btns">
+                <button class="btn btn-edit">✎ Edit</button>
+                <button class="btn btn-delete">🗑 Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Database Management System</td>
+              <td>Ramez Elmasri</td>
+              <td>978-0078022159</td>
+              <td>Computer Science</td>
+              <td>7</td>
+              <td class="action-btns">
+                <button class="btn btn-edit">✎ Edit</button>
+                <button class="btn btn-delete">🗑 Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Clean Code</td>
+              <td>Robert C. Martin</td>
+              <td>978-0132350884</td>
+              <td>Programming</td>
+              <td>5</td>
+              <td class="action-btns">
+                <button class="btn btn-edit">✎ Edit</button>
+                <button class="btn btn-delete">🗑 Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Operating System Concepts</td>
+              <td>Abraham Silberschatz</td>
+              <td>978-1119456330</td>
+              <td>Computer Science</td>
+              <td>8</td>
+              <td class="action-btns">
+                <button class="btn btn-edit">✎ Edit</button>
+                <button class="btn btn-delete">🗑 Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>The Pragmatic Programmer</td>
+              <td>Andrew Hunt</td>
+              <td>978-0201616224</td>
+              <td>Programming</td>
+              <td>6</td>
+              <td class="action-btns">
+                <button class="btn btn-edit">✎ Edit</button>
+                <button class="btn btn-delete">🗑 Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="table-footer">
+          <!-- BACKEND: replace the hardcoded numbers with real values,
+               e.g. ${startIndex} to ${endIndex} of ${totalBooks} books -->
+          <div class="results-info">Showing 1 to 5 of 25 books</div>
+
+          <!--
+            BACKEND: pagination should link to the same endpoint with a
+            "page" query parameter, and the "active" class should be applied
+            to whichever page matches the current one.
+
+            JSP + JSTL example:
+            <div class="pagination">
+              <a class="page-btn" href="/books?page=${currentPage - 1}">Previous</a>
+              <c:forEach begin="1" end="${totalPages}" var="p">
+                <a class="page-btn ${p == currentPage ? 'active' : ''}"
+                   href="/books?page=${p}">${p}</a>
+              </c:forEach>
+              <a class="page-btn" href="/books?page=${currentPage + 1}">Next</a>
+            </div>
+          -->
+          <div class="pagination">
+            <button class="page-btn">Previous</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <span class="page-btn dots">...</span>
+            <button class="page-btn">5</button>
+            <button class="page-btn">Next</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>
