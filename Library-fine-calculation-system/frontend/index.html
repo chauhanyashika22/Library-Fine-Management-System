@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Fine Management System - Dashboard</title>
+    <link rel="stylesheet" href="Library-fine-calculation-system/frontend/css/styles.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="brand">
+        <span class="brand-icon">📖</span>
+        <div class="brand-text">
+            <div class="title">Library Fine</div>
+            <div class="subtitle">Management System</div>
+        </div>
+    </div>
+    <nav>
+        <a class="nav-item active"><span class="nav-icon">🏠</span> Dashboard</a>
+        <a class="nav-item"><span class="nav-icon">📚</span> Books</a>
+        <a class="nav-item"><span class="nav-icon">👥</span> Members</a>
+        <a class="nav-item"><span class="nav-icon">➡️</span> Issue Book</a>
+        <a class="nav-item"><span class="nav-icon">⬅️</span> Return Book</a>
+        <a class="nav-item"><span class="nav-icon">📄</span> Transactions</a>
+        <a class="nav-item"><span class="nav-icon">💲</span> Fines</a>
+        <a class="nav-item"><span class="nav-icon">📊</span> Reports</a>
+        <a class="nav-item"><span class="nav-icon">⚙️</span> Settings</a>
+        <a class="nav-item"><span class="nav-icon">↪️</span> Logout</a>
+    </nav>
+</aside>
+
+<div class="main">
+    <div class="topbar">
+        <div class="hamburger">☰</div>
+        <div class="admin">
+            <div class="avatar">👤</div>
+            Admin <span>▾</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="page-header">
+            <div>
+                <h1>Dashboard</h1>
+                <p>Welcome back, Admin! Here's what's happening in your library.</p>
+            </div>
+            <div class="date-badge">📅 31 May 2024 | Friday</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon blue">📘</div>
+                    <div>
+                        <div class="stat-label">Total Books</div>
+                        <div class="stat-value">120</div>
+                    </div>
+                </div>
+                <a class="stat-link blue">View all books <span>→</span></a>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon green">👥</div>
+                    <div>
+                        <div class="stat-label">Total Members</div>
+                        <div class="stat-value">50</div>
+                    </div>
+                </div>
+                <a class="stat-link green">View all members <span>→</span></a>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon orange">📖</div>
+                    <div>
+                        <div class="stat-label">Issued Books</div>
+                        <div class="stat-value">15</div>
+                    </div>
+                </div>
+                <a class="stat-link orange">View issued books <span>→</span></a>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon purple">💲</div>
+                    <div>
+                        <div class="stat-label">Total Fine Collected</div>
+                        <div class="stat-value">₹ 200</div>
+                    </div>
+                </div>
+                <a class="stat-link purple">View all fines <span>→</span></a>
+            </div>
+        </div>
+
+        <div class="bottom-grid">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>📋 Recent Transactions</h2>
+                    <button class="view-all-btn">View all</button>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Member Name</th>
+                        <th>Book Name</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Fine</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>TXN1001</td><td>Vanshika Poswal</td><td>Java Programming</td>
+                        <td><span class="badge issued">Issued</span></td><td>31 May 2024</td><td>₹0</td>
+                    </tr>
+                    <tr>
+                        <td>TXN1002</td><td>Rahul Sharma</td><td>Data Structures</td>
+                        <td><span class="badge returned">Returned</span></td><td>30 May 2024</td><td>₹10</td>
+                    </tr>
+                    <tr>
+                        <td>TXN1003</td><td>Aman Verma</td><td>Database System</td>
+                        <td><span class="badge issued">Issued</span></td><td>30 May 2024</td><td>₹0</td>
+                    </tr>
+                    <tr>
+                        <td>TXN1004</td><td>Neha Singh</td><td>Operating System</td>
+                        <td><span class="badge returned">Returned</span></td><td>29 May 2024</td><td>₹6</td>
+                    </tr>
+                    <tr>
+                        <td>TXN1005</td><td>Rohit Kumar</td><td>Computer Networks</td>
+                        <td><span class="badge issued">Issued</span></td><td>29 May 2024</td><td>₹0</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="table-footer">
+                    <button class="outline-btn">View All Transactions</button>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Books Status Overview</h2>
+                </div>
+                <div class="donut-wrap">
+                    <div class="donut">
+                        <svg viewBox="0 0 100 100" width="220" height="220">
+                            <!-- Available 60% blue, Issued 20% green, Reserved 15% orange, Lost/Damaged 5% red -->
+                            <circle r="25" cx="50" cy="50" fill="transparent"
+                                    stroke="#2f6fed" stroke-width="50"
+                                    stroke-dasharray="94.2 157"
+                                    transform="rotate(-90 50 50)"/>
+                            <circle r="25" cx="50" cy="50" fill="transparent"
+                                    stroke="#22a06b" stroke-width="50"
+                                    stroke-dasharray="31.4 157"
+                                    stroke-dashoffset="-94.2"
+                                    transform="rotate(-90 50 50)"/>
+                            <circle r="25" cx="50" cy="50" fill="transparent"
+                                    stroke="#e8952f" stroke-width="50"
+                                    stroke-dasharray="23.55 157"
+                                    stroke-dashoffset="-125.6"
+                                    transform="rotate(-90 50 50)"/>
+                            <circle r="25" cx="50" cy="50" fill="transparent"
+                                    stroke="#e0453f" stroke-width="50"
+                                    stroke-dasharray="7.85 157"
+                                    stroke-dashoffset="-149.15"
+                                    transform="rotate(-90 50 50)"/>
+                            <circle r="17" cx="50" cy="50" fill="#fff"/>
+                            <text x="50" y="53" text-anchor="middle" font-size="7" fill="#1c2530" font-weight="700">60%</text>
+                        </svg>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item"><span class="legend-dot" style="background:#2f6fed"></span><span class="label">Available</span><span class="num">72</span></div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#22a06b"></span><span class="label">Issued</span><span class="num">24</span></div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#e8952f"></span><span class="label">Reserved</span><span class="num">18</span></div>
+                        <div class="legend-item"><span class="legend-dot" style="background:#e0453f"></span><span class="label">Lost/Damaged</span><span class="num">6</span></div>
+                    </div>
+                </div>
+                <div class="table-footer">
+                    <button class="outline-btn">View Detailed Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div>© 2024 Library Fine Management System. All rights reserved.</div>
+        <div>Version 1.0.0</div>
+    </footer>
+</div>
+
+</body>
+</html>
